@@ -1,0 +1,149 @@
+.App {
+  text-align: center;
+}
+
+.sign-on-container {
+  margin-top: 90px;
+  background: none;
+  background-color: white;
+  font-size: 18px;
+  padding: 10px 10px;
+  display: inline-table;
+  border: none;
+  border-radius: 0;
+  margin: 25px 0;
+}
+
+.sign-on-input {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  width: 300px;
+  height: 30px;
+}
+
+body {
+  @media screen and (max-width: 800px) {
+    padding: none;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  cursor: pointer;
+}
+.hover{
+  :hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    opacity: 0.9;
+  }
+}
+
+.headercont{
+  position: absolute;
+  top:5;
+  margin-left:10%;
+}
+
+.headerlink{
+  margin-right: 20px;
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    opacity: 0.9;
+  }
+}
+.register{
+  position: absolute;
+  margin-top: 20px;
+  left: 15%;
+  z-index: 999;
+  background:none;
+  background-color: transparent;
+}
+
+.addproduct{
+  position: absolute;
+  margin-top: 20px;
+  left: 8%;
+  z-index: 999;
+  background:none;
+  background-color: transparent;
+
+}
+
+.headerlink:hover{
+  cursor: pointer;
+  transform: scale(1.1);
+  opacity: 0.9;
+}
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+button {
+  color: white;
+  height: 25px;
+  font-size: 13px;
+  justify-content: center;
+  align-items: center;
+  background: #722c2c;
+  border: none;
+  border-radius: 20px;
+  padding: 6px;
+  box-shadow: 2px 2px 2px 2px hsl(218, 60%, 92%);
+
+}
+button:hover {
+  transform: scale(1.1);
+  color: whitesmoke;
+  cursor: pointer;
+  font-weight: bold;
+  border: 2px 2px 2px 2px goldenrod;
+}
+
+input {
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.179);
+  box-shadow: 2px 2px 2px 2px hsl(218, 60%, 92%);
+  border: none;
+  border-radius: 20px;
+  padding: 5px;
+}
+
+.loader {
+  border: 5px solid #f3f3f3; /* Light grey */
+  border-top: 5px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 2s linear infinite;
+  position: fixed;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+#upload{
+  @media screen and (max-width: 1200px) {
+    position: fixed;
+    top: 3%;
+    right: 25%;
+    z-index: 999;
+  }
+}
+
+#tablebutt{
+  margin-left: 20px;
+}
