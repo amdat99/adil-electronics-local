@@ -1,31 +1,57 @@
-import React,{useState} from 'react';
-import Logo from './adil-electronics.jpg';
-function Login({currentUser,emailSignInPending}) {
+import React, { useState } from "react";
+import Logo from "./adil-electronics.jpg";
 
-    const [signinData, setSignInInfo] = useState({ userName: "", password: "" });
+import Connection from "./Connection";
 
-    const { userName, password } = signinData;
-    const handleSubmit = async (event) => {
-        if(!userName||!password){
-            return;
-        }
-      event.preventDefault();
-      emailSignInPending(signinData);
-      // if(error !== null){
-      //     alert(error)
-      // }
-    };
-  
-    const handleChange = (event) => {
-      const { value, name } = event.target;
-  
-      setSignInInfo({ ...signinData, [name]: value });
-    };
-    return (
-        <div  style={{display:'flex', flexDirection:'column',justifyContent: 'center',alignItems: 'center'}}>
-            <img src={Logo} alt='logo' width='300' height='120' style={{marginTop:'50px',borderRadius:'30px'}}/>
+function Login({ currentUser, emailSignInPending }) {
+  const [signinData, setSignInInfo] = useState({ userName: "", password: "" });
+  const [toggleConnection, setToggleConnection] = useState(false);
+
+  const { userName, password } = signinData;
+  const handleSubmit = async (event) => {
+    if (!userName || !password) {
+      return;
+    }
+    event.preventDefault();
+    emailSignInPending(signinData);
+    // if(error !== null){
+    //     alert(error)
+    // }
+  };
+
+  const handleChange = (event) => {
+    const { value, name } = event.target;
+
+    setSignInInfo({ ...signinData, [name]: value });
+  };
+
+  return (
+    <div>
+      <span
+        className="connectheader"
+        onClick={() => setToggleConnection(!toggleConnection)}
+      >
+        Configure Connection
+      </span>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {toggleConnection ? (
+          <Connection setShowConnections={setToggleConnection} />
+        ) : null}
+        <img
+          src={Logo}
+          alt="logo"
+          width="300"
+          height="120"
+          style={{ marginTop: "50px", borderRadius: "30px" }}
+        />
         <form className="sign-on-container" onSubmit={handleSubmit}>
-
           <input
             name="userName"
             type="text"
@@ -36,7 +62,7 @@ function Login({currentUser,emailSignInPending}) {
             className="sign-on-input"
             required
           />
-  
+
           <input
             name="password"
             type="password"
@@ -52,7 +78,8 @@ function Login({currentUser,emailSignInPending}) {
           </div>
         </form>
       </div>
-    );
+    </div>
+  );
 }
 
 export default Login;

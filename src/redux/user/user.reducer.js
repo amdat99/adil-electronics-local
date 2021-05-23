@@ -4,8 +4,13 @@ const INITIAL_STATE = {
   pending: false,
   currentUser: null,
   error: null,
-
+  onFetch: false,
+  dataServer: "http://localhost:7500/",
+  fileServer: "http://localhost:8000/",
 };
+
+export const dataServer = INITIAL_STATE.dataServer;
+
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case userActionTypes.SIGN_UP_START:
@@ -35,12 +40,31 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         pending: false,
         error: null,
-      }
+      };
+    case userActionTypes.ONFETCH:
+      return {
+        ...state,
+        pending: false,
+        error: null,
+        onFetch: !state.onFetch,
+      };
+    case userActionTypes.FILE_SERVER: {
+      return {
+        ...state,
+        fileServer: action.payload,
+      };
+    }
+    case userActionTypes.DATA_SERVER: {
+      return {
+        ...state,
+        dataServer: action.payload,
+      };
+    }
 
     case userActionTypes.SIGNIN_FAILED:
     case userActionTypes.SIGNOUT_FAILED:
     case userActionTypes.SIGN_UP_FAILURE:
-      case userActionTypes.ADD_PRODUCT_FAILURE:
+    case userActionTypes.ADD_PRODUCT_FAILURE:
       return {
         ...state,
         pending: false,

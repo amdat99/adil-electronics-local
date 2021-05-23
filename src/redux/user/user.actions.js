@@ -1,7 +1,5 @@
 import userActionTypes from "./user.types";
 
-
-
 export const signInSuccess = (user) => ({
   type: userActionTypes.SIGNIN_SUCCESS,
   payload: user,
@@ -48,19 +46,32 @@ export const signOutFailure = () => ({
   type: userActionTypes.SIGNOUT_FAILED,
 });
 
-export const addProductPending = (productData) =>({
+export const addProductPending = (productData) => ({
   type: userActionTypes.ADD_PRODUCT_PENDING,
   payload: productData,
-})
+});
 
 export const addProductSuccess = (message) => ({
   type: userActionTypes.ADD_PRODUCT_SUCCESS,
   payload: message,
-})
+});
 
 export const addProductFailure = (e) => ({
   type: userActionTypes.ADD_PRODUCT_FAILURE,
-  payload: e
-})
+  payload: e,
+});
 
+export const setOnFetch = (data) => ({
+  type: userActionTypes.ONFETCH,
+  payload: data,
+});
 
+export const setDataServer = (server) => ({
+  type: userActionTypes.DATA_SERVER,
+  payload: server,
+});
+
+export const setFileServer = (server) => ({
+  type: userActionTypes.FILE_SERVER,
+  payload: server,
+});

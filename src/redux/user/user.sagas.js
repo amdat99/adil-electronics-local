@@ -1,123 +1,92 @@
-import {takeLatest, put, all, call} from 'redux-saga/effects';
-
-
-
-
+import { takeLatest, put, all, call } from "redux-saga/effects";
 
 import {
   signInSuccess,
   signInFailure,
   signUpFailure,
-  addProductSuccess
+  addProductSuccess,
+  setOnFetch,
+} from "./user.actions";
 
-} from './user.actions';
+import userActionTypes from "./user.types";
 
-
-import userActionTypes from './user.types';
-
+import { dataServer } from "./user.reducer";
 
 // import {sendProfileChange } from "../../sockets/sockets"
 
-
-
-export function* signInWithEmail({payload: {userName, password}}) {
+export function* signInWithEmail({ payload: { userName, password } }) {
   try {
- 
-    const response = yield fetch('http://localhost:7500/fetchuser',{
-   
+    const response = yield fetch(dataServer + "fetchuser", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        userName:userName,
-        password:password,
+        userName: userName,
+        password: password,
       }),
+    });
+    const data = yield response.json();
+  
+      if(data[0].userid){
+      if (data !== "wrong credentials" || data !== []  ) {
+        yield put(signInSuccess(data));
     }
-  );
-  const data = yield response.json();
-  console.log(data);
- {
-   
-  if(data !== "wrong credentials"){
-    yield put(signInSuccess(data));
-
-    if(data === "wrong credentials"){
-      yield put(signInFailure(data))
-    }
-
-  }  
-  }
+        if (data === "wrong credentials") {
+          yield put(signInFailure(data));
+        }
+      
+      }
   } catch (error) {
     yield put(signInFailure(error));
   }
 }
 
-
-
-
-export function* registerUserAsync({
-  payload: {  userName,password },
-}) {
-  console.log('ss',{payload: {userName, password}})
-
+export function* registerUserAsync({ payload: { userName, password } }) {
   try {
-   
-        const response = yield fetch('http://localhost:7500/adduser',{
-        method: "post",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          password:password,
-          userName: userName,
-          
-        }),
-      }
-    );
+    const response = yield fetch(dataServer + "adduser", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        password: password,
+        userName: userName,
+      }),
+    });
     const data = yield response.json();
-    console.log(data);
-    if (data.email) {
-      yield put(signInSuccess(data));
-   
+
+    if (data.name) {
+      yield put(signInSuccess(data.name));
     }
   } catch (e) {
-    yield put(signUpFailure(e))
+    yield put(signUpFailure(e));
   }
 }
 
 export function* addProductAsync({
-  payload: {  serialNumber, invoiceNumber,modal,accessid},
+  payload: { serialNumber, invoiceNumber, modal, accessid },
 }) {
-  console.log('ss',{payload: {serialNumber, invoiceNumber,modal,accessid}})
-
   try {
-   
-        const response = yield fetch('http://localhost:7500/addproduct',{
-        method: "post",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          serialNumber: serialNumber,
-          invoiceNumber: invoiceNumber,
-          modal: modal,
-          accessid: accessid
-          
-        }),
-      }
-    );
+    const response = yield fetch(dataServer + "addproduct", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        serialNumber: serialNumber,
+        invoiceNumber: invoiceNumber,
+        modal: modal,
+        accessid: accessid,
+      }),
+    });
     const data = yield response.json();
     console.log(data);
-    if (data.invoiceNumber) {
-      yield put(addProductSuccess(data));
-   
+    if (data) {
+      yield put(setOnFetch(Math.random()));
     }
   } catch (e) {
-    yield put(signUpFailure(e))
+    yield put(signUpFailure(e));
   }
 }
-
 
 export function* onEmailSignInPending() {
   yield takeLatest(userActionTypes.EMAIL_SIGNIN_PENDING, signInWithEmail);
 }
-
-
 
 export function* onSignUpPending() {
   yield takeLatest(userActionTypes.SIGN_UP_START, registerUserAsync);
@@ -131,6 +100,6 @@ export function* userSagas() {
   yield all([
     call(onEmailSignInPending),
     call(onSignUpPending),
-    call(onAddProductPending)
+    call(onAddProductPending),
   ]);
 }
