@@ -15,6 +15,8 @@ const userActionTypes = {
   ONFETCH: "ONFETCH",
   DATA_SERVER: "DATA_SERVER",
   FILE_SERVER: "FILE_SERVER",
+  ADD_TABLE: "ADD_TABLE",
+  ADD_CURRENT_TABLE: "ADD_CURRENT_TABLE"
 };
 
 export default userActionTypes;

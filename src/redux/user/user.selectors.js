@@ -23,3 +23,13 @@ export const selectFileServer = createSelector(
   [selectUser],
   (user) => user.fileServer
 );
+
+export const selectTables = createSelector(
+[selectUser],
+(user) => user.tables
+)
+
+export const selectCurrentTable = createSelector(
+  [selectUser],
+  (user) => user.currentTable
+)

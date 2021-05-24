@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 
-function AddProduct({ addProductPending, currentUser, setShowAddProduct }) {
+function AddProduct({ addProductPending, currentUser, setShowAddProduct,dataServer }) {
   const [productData, setProductData] = useState({
     serialNumber: "",
     invoiceNumber: "",
     modal: "",
     accessid: "",
   });
+
+  const [id,setId] = useState('')
+
+  const [onUpdate, setOnUpdate]= useState(false)
 
   const { serialNumber, invoiceNumber, modal } = productData;
   useEffect(() => {
@@ -32,6 +36,29 @@ function AddProduct({ addProductPending, currentUser, setShowAddProduct }) {
     setProductData({ ...productData, [name]: value });
   };
 
+
+  const updateProd = async () => {
+
+    const {serialNumber, invoiceNumber, modal, accessid} = productData
+    try {
+      const response = await fetch(dataServer + "updateproduct", {
+        method: "put",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          serialNumber: serialNumber,
+          invoiceNumber: invoiceNumber,
+          modal: modal,
+          accessid: accessid,
+          id: id
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <div className="addproduct">
       <span
@@ -47,6 +74,19 @@ function AddProduct({ addProductPending, currentUser, setShowAddProduct }) {
       </span>
 
       <form className="" onSubmit={handleSubmit}>
+        {onUpdate?
+           <input
+           name="id"
+           type="text"
+           value={id}
+           placeholder="Enter id to update"
+           onChange={(e)=>setId(e.target.value)}
+           label="id"
+           className="sign-on-input"
+           required
+         />
+      
+      :null}
         <input
           name="serialNumber"
           type="text"
@@ -80,7 +120,10 @@ function AddProduct({ addProductPending, currentUser, setShowAddProduct }) {
           required
         />
         <div className="button">
-          <button type="submit"> Add </button>
+          {onUpdate?
+         <button type="button" onClick={updateProd}>update</button> 
+: <button type="submit"> Add </button>}
+<button style= {{ marginLeft:'7px'}}onClick = {() =>setOnUpdate(!onUpdate)}type="button">Toggle update</button>
         </div>
       </form>
     </div>

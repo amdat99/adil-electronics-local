@@ -308,9 +308,10 @@ input {
     top: 3%;
     right: 25%;
     z-index: 899;
+    background: white;
   }
   @media screen and (max-width: 800px) {
-    background: white;
+    
     border-radius: 20px;
     padding: 2px;
   }

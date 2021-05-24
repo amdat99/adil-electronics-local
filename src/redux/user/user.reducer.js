@@ -1,5 +1,15 @@
 import userActionTypes from "./user.types";
 
+ const addTable= (currentTables, tableToAdd) => {
+  return [...currentTables, {...tableToAdd}];
+};
+
+ const setCurrentTable = (tables, id) => {
+  const currentTable = tables.find(table => table.id === id);
+
+  return [currentTable];
+};
+
 const INITIAL_STATE = {
   pending: false,
   currentUser: null,
@@ -7,6 +17,8 @@ const INITIAL_STATE = {
   onFetch: false,
   dataServer: "http://localhost:7500/",
   fileServer: "http://localhost:8000/",
+  tables: [],
+  localTable: []
 };
 
 export const dataServer = INITIAL_STATE.dataServer;
@@ -59,6 +71,19 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         dataServer: action.payload,
       };
+    }
+    case userActionTypes.ADD_TABLE:{
+      return {
+        ...state,
+        tables: addTable(state.tables, action.payload)
+      }
+    }
+
+    case userActionTypes.ADD_CURRENT_TABLE:{
+      return {
+        ...state,
+        tables: action.payload
+      }
     }
 
     case userActionTypes.SIGNIN_FAILED:

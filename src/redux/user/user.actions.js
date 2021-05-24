@@ -75,3 +75,13 @@ export const setFileServer = (server) => ({
   type: userActionTypes.FILE_SERVER,
   payload: server,
 });
+
+export const addTable = (table) => ({
+  type: userActionTypes.ADD_TABLE,
+  payload: table,
+})
+
+export const setCurrentTable = (table) => ({
+  type: userActionTypes.ADD_CURRENT_TABLE,
+  payload: table,
+})

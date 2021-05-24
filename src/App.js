@@ -3,8 +3,8 @@ import {connect} from 'react-redux'
 import { createStructuredSelector } from 'reselect';
 
 import './App.scss';
-import { emailSignInPending,signOutPending ,signUpPending,addProductPending, setOnFetch,setFileServer,setDataServer} from './redux/user/user.actions';
-import { selectCurrentUser, onFetch, selectFileServer, selectDataServer } from './redux/user/user.selectors';
+import { emailSignInPending, setCurrentTable, addTable, signOutPending ,signUpPending,addProductPending, setOnFetch,setFileServer,setDataServer} from './redux/user/user.actions';
+import { selectCurrentUser, selectTables, onFetch, selectCurrentTable, selectFileServer, selectDataServer } from './redux/user/user.selectors';
 
 import Login from './Login'
 import Header from './Header'
@@ -18,7 +18,8 @@ import Email from './Email'
 import Connection from './Connection'
 import Pdf from './Pdf'
 
-function App({currentUser,emailSignInPending,signOutPending,signUpPending,addProductPending,dataServer,fileServer, setFileServer, setDataServer}) {
+function App({currentUser,emailSignInPending,signOutPending,signUpPending,
+  addProductPending,dataServer,fileServer, setFileServer, setDataServer,setCurrentTable, addTable,tables, currentTable}) {
 
 const [showUpload,setShowUpload] = useState(false)
 const [showRegister,setShowRegister] = useState(false)
@@ -126,7 +127,7 @@ const [showPdf, setShowPdf] = useState(false)
         <Pdf setShowPdf ={setShowPdf}/>
         :null}
    
-          <Products dataServer={dataServer} currentUser={currentUser} onFetch={onFetch}/>
+          <Products currentTable={currentTable} setCurrentTable={setCurrentTable} tables={tables} addTable={addTable} dataServer={dataServer} currentUser={currentUser} onFetch={onFetch}/>
 
           
     </div>
@@ -141,7 +142,9 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
   onFetch: onFetch,
   dataServer: selectDataServer,
-  fileServer : selectFileServer
+  fileServer : selectFileServer,
+  tables: selectTables,
+  currentTable: selectCurrentTable
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -152,6 +155,8 @@ const mapDispatchToProps = dispatch => ({
   setOnFetch: (data) => dispatch(setOnFetch(data)),
   setDataServer:(server) => dispatch(setDataServer(server)),
   setFileServer:(server) => dispatch(setFileServer(server)),
+  addTable:(table) => dispatch(addTable(table)),
+  setCurrentTable:(table) => dispatch(setCurrentTable(table)),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(App);

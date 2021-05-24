@@ -61,6 +61,7 @@ function Upload({ setShowUpload, fileServer }) {
      
       {showMultiple ? (
         <form
+        style={{marginTop: "5px",marginBottom:'5px'}}
           ref={uploadForm}
           id="uploadForm"
           action={fileServer + "upload"}
@@ -74,6 +75,7 @@ function Upload({ setShowUpload, fileServer }) {
       {showMultiple && <span>Multiple Upload</span>}
       {showSingle ? (
         <form
+        style={{marginTop: "5px",marginBottom:'5px'}}
           ref={uploadForm}
           id="uploadForm"
           action={fileServer + "singleupload"}
