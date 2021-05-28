@@ -12,7 +12,8 @@ function Header({
   toggleEmail,
   toggleConnection,
   togglePdf,
-  fileServer
+  fileServer,
+  toggleLive
 }) {
   const [showAdmin, setShowAdmin] = useState(false);
   return (
@@ -85,6 +86,9 @@ function Header({
       </span>
       <span onClick={toggleEmail} className="emailheader">
         Email
+      </span>
+      <span style={{marginTop:'27px'}} onClick={toggleLive} className="emailheader">
+        Chat
       </span>
       <span onClick={signOutPending} style={{ position: "fixed", right: 30 }}>
         Sign Out

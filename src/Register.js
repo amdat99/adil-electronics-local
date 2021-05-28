@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 
-function Register({ signUpPending, setShowRegister }) {
+function Register({ signUpPending, setShowRegister, dataServer }) {
   const [signUpData, setSignUpData] = useState({
     userName: "",
     password: "",
     confirmPassword: "",
+    server: ''
   });
+
+  useEffect(() => {
+    setSignUpData({...signUpData,server:dataServer})
+  },[dataServer])
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -22,7 +27,7 @@ function Register({ signUpPending, setShowRegister }) {
     // if (error !== null) {
     //   alert(error);
     // }
-    setSignUpData({ username: "", password: "", confirmPassword: "" });
+    setSignUpData({ username: "", password: "", confirmPassword: "", server:dataServer });
   };
 
   const handleChange = (event) => {

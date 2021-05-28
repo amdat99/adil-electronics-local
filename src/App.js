@@ -17,6 +17,7 @@ import DeleteListing from './Delete-listing';
 import Email from './Email'
 import Connection from './Connection'
 import Pdf from './Pdf'
+import Sockets from './Sockets'
 
 function App({currentUser,emailSignInPending,signOutPending,signUpPending,
   addProductPending,dataServer,fileServer, setFileServer, setDataServer,setCurrentTable, addTable,tables, currentTable}) {
@@ -29,6 +30,7 @@ const [showDeleteProd, setShowDeleteProd] = useState(false)
 const [showEmail, setShowEmail] = useState(false)
 const [showConnections, setShowConnections] = useState(false)
 const [showPdf, setShowPdf] = useState(false)
+const [showLive, setShowLive] = useState(false)
 
 
   const toggleUpload = () => {
@@ -79,7 +81,10 @@ const [showPdf, setShowPdf] = useState(false)
     setShowPdf(!showPdf)
   }
 
-  let pdf = 'http://www.africau.edu/images/default/sample.pdf'
+  const toggleLive = () => {
+    setShowLive(!showLive)
+  }
+
   return (
     
     <div className="App">
@@ -91,7 +96,8 @@ const [showPdf, setShowPdf] = useState(false)
           
         <Header toggleRegister ={toggleRegister} toggleAddProduct= {toggleAddProduct} onRegister={onRegister}
         toggleUpload={toggleUpload} currentUser={currentUser} signOutPending={signOutPending} onDelete={onDelete}  currentUser={currentUser}
-        onDeleteProd={onDeleteProd} toggleEmail={toggleEmail} toggleConnection={toggleConnection} togglePdf={togglePdf}  fileServer={fileServer}/>
+        onDeleteProd={onDeleteProd} toggleEmail={toggleEmail} toggleConnection={toggleConnection} togglePdf={togglePdf}  fileServer={fileServer}
+        toggleLive={toggleLive}/>
 
 
         
@@ -126,6 +132,11 @@ const [showPdf, setShowPdf] = useState(false)
         {showPdf?
         <Pdf setShowPdf ={setShowPdf}/>
         :null}
+
+    
+        <div id= {showLive? null: 'hide'}>
+        <Sockets dataServer={dataServer} currentUser={currentUser} setShowLive={setShowLive} />
+        </div>
    
           <Products currentTable={currentTable} setCurrentTable={setCurrentTable} tables={tables} addTable={addTable} dataServer={dataServer} currentUser={currentUser} onFetch={onFetch}/>
 
@@ -133,7 +144,7 @@ const [showPdf, setShowPdf] = useState(false)
     </div>
 
 
-: <Login emailSignInPending = {emailSignInPending} />}
+: <Login emailSignInPending = {emailSignInPending} dataServer={dataServer} />}
     </div>
   );
 }

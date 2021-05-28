@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import Logo from "./adil-electronics.jpg";
 
 import Connection from "./Connection";
 
-function Login({ currentUser, emailSignInPending }) {
-  const [signinData, setSignInInfo] = useState({ userName: "", password: "" });
+function Login({ currentUser, emailSignInPending, dataServer }) {
+  const [signinData, setSignInInfo] = useState({ userName: "", password: "",server:'' });
   const [toggleConnection, setToggleConnection] = useState(false);
 
+  useEffect(() => {
+    setSignInInfo({...setSignInInfo, server:dataServer})
+  },[dataServer])
   const { userName, password } = signinData;
   const handleSubmit = async (event) => {
     if (!userName || !password) {

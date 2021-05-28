@@ -14,11 +14,12 @@ import { dataServer } from "./user.reducer";
 
 // import {sendProfileChange } from "../../sockets/sockets"
 
-export function* signInWithEmail({ payload: { userName, password } }) {
+export function* signInWithEmail({ payload: { userName, password, server } }) {
   try {
-    const response = yield fetch(dataServer + "fetchuser", {
+    const response = yield fetch(server + "fetchuser", {
       method: "post",
       headers: { "Content-Type": "application/json" },
+      rejectUnauthorized: false,
       body: JSON.stringify({
         userName: userName,
         password: password,
@@ -40,9 +41,9 @@ export function* signInWithEmail({ payload: { userName, password } }) {
   }
 }
 
-export function* registerUserAsync({ payload: { userName, password } }) {
+export function* registerUserAsync({ payload: { userName, password,server } }) {
   try {
-    const response = yield fetch(dataServer + "adduser", {
+    const response = yield fetch(server + "adduser", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -61,10 +62,10 @@ export function* registerUserAsync({ payload: { userName, password } }) {
 }
 
 export function* addProductAsync({
-  payload: { serialNumber, invoiceNumber, modal, accessid },
+  payload: { serialNumber, invoiceNumber, modal, accessid,server },
 }) {
   try {
-    const response = yield fetch(dataServer + "addproduct", {
+    const response = yield fetch(server + "addproduct", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

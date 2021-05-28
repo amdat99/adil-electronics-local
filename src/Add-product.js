@@ -6,6 +6,7 @@ function AddProduct({ addProductPending, currentUser, setShowAddProduct,dataServ
     invoiceNumber: "",
     modal: "",
     accessid: "",
+    server: ''
   });
 
   const [id,setId] = useState('')
@@ -13,9 +14,14 @@ function AddProduct({ addProductPending, currentUser, setShowAddProduct,dataServ
   const [onUpdate, setOnUpdate]= useState(false)
 
   const { serialNumber, invoiceNumber, modal } = productData;
+ 
+  useEffect(() => {
+    setProductData({...productData, server: dataServer})
+  },[dataServer])
+
   useEffect(() => {
     if (currentUser) {
-      setProductData({ ...productData, accessid: currentUser[0].accessid });
+      setProductData({ ...productData, server: dataServer, accessid: currentUser[0].accessid });
     }
   }, [currentUser]);
 

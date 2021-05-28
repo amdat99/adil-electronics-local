@@ -301,6 +301,31 @@ input {
   }
 }
 
+.messbox{
+  position: absolute;
+ 
+  right: 30%;
+  z-index: 990;
+  background: white;
+  max-width: 80%;
+  border-radius: 20px;
+  padding: 10px;
+  box-shadow: 2px 2px 2px 2px hsl(218, 60%, 92%);
+  display: flex;
+  flex-direction: column;
+
+  @media screen and (max-width: 800px) {
+    position: absolute;
+    margin-top: 8%;
+    max-width: 70%;
+    left: 20%;
+    z-index: 990;
+
+    font-size: 12px;
+    padding: 2px;
+  }
+}
+
 #upload {
 
   @media screen and (max-width: 1730px) {

@@ -108,6 +108,7 @@ const [showTable, setShowTable] = useState(false)
   }
 
   const fetchProducts = async () => {
+    setSearchFilter('')
     setColumnsProduct([
       {
         name: "Id",
@@ -161,6 +162,7 @@ const [showTable, setShowTable] = useState(false)
 
   const fetchProductsCust = async (url) => {
     console.log("Fetching products");
+    setSearchFilter('')
     try {
       const response = await fetch(url, {
         method: "get",
@@ -258,7 +260,7 @@ const deleteTable = (id) => {
           
          <div style={{display:'flex',flexDirection:'row' ,marginTop:'5px',}}>
             <span style={{marginTop:'3px'}}>{table.name}</span>
-            <button style={{marginLeft:'10px'}} onClick={() =>setLocalTable(table.data)}>Set table</button>
+            <button style={{marginLeft:'10px'}} onClick={() =>{setLocalTable(table.data); setSearchFilter('')}}>Set table</button>
             <span  onClick={()=>deleteTable(table.id)}
             style={{color:'#8b0000',cursor:'pointer',marginTop:'3px',marginLeft:'3px'}}>x</span>
      
