@@ -25,11 +25,10 @@ function AddProduct({ addProductPending, currentUser, setShowAddProduct,dataServ
     }
   }, [currentUser]);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async () => {
     if (!serialNumber || !invoiceNumber || !modal) {
       return;
     }
-    event.preventDefault();
     addProductPending(productData);
     // if(error !== null){
     //     alert(error)
@@ -79,7 +78,7 @@ function AddProduct({ addProductPending, currentUser, setShowAddProduct,dataServ
         x
       </span>
 
-      <form className="" onSubmit={handleSubmit}>
+      <form className="" >
         {onUpdate?
            <input
            name="id"
@@ -101,7 +100,7 @@ function AddProduct({ addProductPending, currentUser, setShowAddProduct,dataServ
           onChange={handleChange}
           label="serialNumber"
           className="sign-on-input"
-          required
+          
         />
 
         <input
@@ -112,7 +111,7 @@ function AddProduct({ addProductPending, currentUser, setShowAddProduct,dataServ
           onChange={handleChange}
           label="invoiceNumber"
           className="sign-on-input"
-          required
+          
         />
 
         <input
@@ -123,12 +122,13 @@ function AddProduct({ addProductPending, currentUser, setShowAddProduct,dataServ
           onChange={handleChange}
           label="modal"
           className="sign-on-input"
-          required
+          
         />
         <div className="button">
           {onUpdate?
-         <button type="button" onClick={updateProd}>update</button> 
-: <button type="submit"> Add </button>}
+         <button  type="button" onClick={updateProd}>update</button> 
+: <button onClick={handleSubmit} type="button"> Add </button>
+}
 <button style= {{ marginLeft:'7px'}}onClick = {() =>setOnUpdate(!onUpdate)}type="button">Toggle update</button>
         </div>
       </form>

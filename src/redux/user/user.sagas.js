@@ -19,7 +19,6 @@ export function* signInWithEmail({ payload: { userName, password, server } }) {
     const response = yield fetch(server + "fetchuser", {
       method: "post",
       headers: { "Content-Type": "application/json" },
-      rejectUnauthorized: false,
       body: JSON.stringify({
         userName: userName,
         password: password,

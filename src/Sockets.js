@@ -52,6 +52,7 @@ function Sockets({dataServer,currentUser,setShowLive}) {
     setMessage(event.target.value)
   }
 
+
   
 
   return (

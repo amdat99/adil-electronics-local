@@ -122,7 +122,7 @@ const [showLive, setShowLive] = useState(false)
         :null}
 
         {showEmail?
-        <Email setShowEmail={setShowEmail}/>
+        <Email dataServer={dataServer} currentUser={currentUser}setShowEmail={setShowEmail}/>
         :null}
 
         {showConnections?

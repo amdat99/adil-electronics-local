@@ -1,26 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-function Email({ setShowEmail }) {
-  const [emailData, setEmailData] = useState({
-    sendto: "",
-    subject: "",
-    body: "",
-  });
+function Email({ setShowEmail,dataServer }) {
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    if (emailData.sendto || emailData.subject || emailData.body) {
-      return;
-    }
-    // signUpPending(emailData);
-  };
-
-  const handleChange = (event) => {
-    const { value, name } = event.target;
-
-    setEmailData({ ...emailData, [name]: value });
-  };
   return (
     <div>
       <div className="email">
@@ -35,32 +16,28 @@ function Email({ setShowEmail }) {
         >
           x
         </span>
-        <form onSubmit={handleSubmit}>
-          <input
-            className="sign-on-input"
-            type="text"
-            name="sendto"
-            placeholder="Send to :"
-            onChange={handleChange}
-            label="sendto"
-          />
-          <input
-            className="sign-on-input"
-            type="text"
-            name="subjcet"
-            placeholder="subject :"
-            onChange={handleChange}
-            label="subjcet"
-          />
-          <textarea
-            className="sign-on-input"
-            type="text"
-            name="body"
-            placeholder="body:"
-            onChange={handleChange}
-            label="body"
-          />
-          <button type="submit">Send</button>
+        <form action= {dataServer+"sendemail"} method="POST" encType="multipart/form-data">
+
+      
+            <div class="form-group">
+                <input style={{marginBottom:'10px'}} type="email" class="form-control" name="email" placeholder="email:" required id=""/>
+            </div>
+               <div className="form-group">
+                <input style={{marginBottom:'10px'}} class="form-control" type="text" name="subject" required placeholder="subject:"/>
+            </div>
+            <div className="form-group">
+                <textarea style= {{width:'80%', marginBottom:'10px'}} required class="form-control" name="body" id="" cols="30" rows="10" placeholder="Message:"></textarea>
+            </div>
+            <label htmlFor="attachment">Attachment:</label>
+            <div className="form-group">
+                <input style={{marginBottom:'10px'}}type="file"  class="form-control" name="images" multiple id=""/>
+            </div>
+            <div className="form-group">
+                <button style={{marginBottom:'10px'}} type="submit" class="btn btn-block btn-danger">
+                    Send 
+                </button>
+            </div>
+            
         </form>
       </div>
     </div>
