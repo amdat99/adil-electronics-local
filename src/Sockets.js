@@ -57,7 +57,8 @@ function Sockets({dataServer,currentUser,setShowLive}) {
 
   return (
     <React.Fragment>
-    <div style={{marginRight:'10%',overflowY:'scroll',maxHeight:'50%',maxWidth:'80%'}} className="email">
+    <div 
+    style={{marginRight:'10%', marginTop:'7%',overflowY:'scroll',maxHeight:'50%',maxWidth:'80%'}} className="email">
 
 
 

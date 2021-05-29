@@ -4,7 +4,7 @@ function Email({ setShowEmail,dataServer }) {
 
   return (
     <div>
-      <div className="email">
+      <div   className="message">
         <span
           onClick={() => setShowEmail(false)}
           style={{
@@ -12,6 +12,7 @@ function Email({ setShowEmail,dataServer }) {
             cursor: "pointer",
             position: "absolute",
             left: "98%",
+            
           }}
         >
           x
